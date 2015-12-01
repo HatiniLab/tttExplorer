@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>tttExplorerMainWindow</class>
+ <widget class="QMainWindow" name="tttExplorerMainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>845</width>
+    <height>365</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>tttExplorerMainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="1" column="0">
+     <widget class="QVTKWidget" name="qvtkWidget"/>
+    </item>
+    <item row="0" column="0">
+     <widget class="QSlider" name="horizontalSlider">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>845</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>F&amp;ile</string>
+    </property>
+    <addaction name="actionNewDataset"/>
+    <addaction name="actionOpenDataset"/>
+    <addaction name="actionExport_data"/>
+    <addaction name="actionExport_movie"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <addaction name="actionReset"/>
+   </widget>
+   <widget class="QMenu" name="menuFilters">
+    <property name="title">
+     <string>Filters</string>
+    </property>
+    <widget class="QMenu" name="menuSegmentation">
+     <property name="title">
+      <string>&amp;Segmentation</string>
+     </property>
+     <addaction name="actionEdge_Inference_2"/>
+    </widget>
+    <addaction name="actionDeconvolution"/>
+    <addaction name="actionDiffusion"/>
+    <addaction name="actionFeature_Detection"/>
+    <addaction name="actionVertex_Detection"/>
+    <addaction name="menuSegmentation"/>
+    <addaction name="actionTracking"/>
+    <addaction name="actionJoint_Segmentation_and_Tracking"/>
+    <addaction name="actionMolecular_Estimation"/>
+    <addaction name="actionCell_Detector"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionUndo"/>
+    <addaction name="actionAddFrame"/>
+    <addaction name="actionRemove_Frame"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuLayers">
+    <property name="title">
+     <string>Layers</string>
+    </property>
+    <addaction name="actionAdd_Layer"/>
+    <addaction name="actionRemove_Layer"/>
+    <addaction name="actionShow_Layer"/>
+   </widget>
+   <widget class="QMenu" name="menuSelect">
+    <property name="title">
+     <string>Select</string>
+    </property>
+    <addaction name="actionSelect_Vertex"/>
+    <addaction name="actionSelect_Edge"/>
+    <addaction name="actionSelect_Cell"/>
+    <addaction name="actionAdd_Vertex"/>
+    <addaction name="actionRemove_Vertex"/>
+    <addaction name="actionAdd_Edge"/>
+    <addaction name="actionRemove_Edge"/>
+   </widget>
+   <widget class="QMenu" name="menuWindow">
+    <property name="title">
+     <string>Wi&amp;ndow</string>
+    </property>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuLayers"/>
+   <addaction name="menuView"/>
+   <addaction name="menuFilters"/>
+   <addaction name="menuSelect"/>
+   <addaction name="menuWindow"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QDockWidget" name="Layers">
+   <property name="windowTitle">
+    <string>&amp;Layers</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <widget class="QListView" name="listView">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>256</width>
+       <height>192</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockWidget">
+   <property name="windowTitle">
+    <string>Ti&amp;melapse</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="pushButton_3">
+       <property name="text">
+        <string>&lt;</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="text">
+        <string>p</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="text">
+        <string>&gt;</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockWidget_2">
+   <property name="windowTitle">
+    <string>Tiss&amp;ue Tree</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>8</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_3"/>
+  </widget>
+  <widget class="QDockWidget" name="PlotArea">
+   <property name="windowTitle">
+    <string>&amp;Plot Area</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>8</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_4"/>
+  </widget>
+  <widget class="QDockWidget" name="JobManager">
+   <property name="windowTitle">
+    <string>&amp;Job Manager</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_5"/>
+  </widget>
+  <action name="actionDeconvolution">
+   <property name="text">
+    <string>&amp;Deconvolution</string>
+   </property>
+  </action>
+  <action name="actionDiffusion">
+   <property name="text">
+    <string>D&amp;iffusion</string>
+   </property>
+  </action>
+  <action name="actionNewDataset">
+   <property name="text">
+    <string>New Dataset</string>
+   </property>
+  </action>
+  <action name="actionOpenDataset">
+   <property name="text">
+    <string>Open Dataset</string>
+   </property>
+  </action>
+  <action name="actionReset">
+   <property name="text">
+    <string>&amp;Reset</string>
+   </property>
+  </action>
+  <action name="actionAddFrame">
+   <property name="text">
+    <string>&amp;Add Frame</string>
+   </property>
+  </action>
+  <action name="actionRemove_Frame">
+   <property name="text">
+    <string>&amp;Remove Frame</string>
+   </property>
+  </action>
+  <action name="actionAdd_Layer">
+   <property name="text">
+    <string>&amp;Add Layer</string>
+   </property>
+  </action>
+  <action name="actionRemove_Layer">
+   <property name="text">
+    <string>&amp;Remove Layer</string>
+   </property>
+  </action>
+  <action name="actionShow_Layer">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Show Layer</string>
+   </property>
+  </action>
+  <action name="actionUndo">
+   <property name="text">
+    <string>&amp;Undo</string>
+   </property>
+  </action>
+  <action name="actionFeature_Detection">
+   <property name="text">
+    <string>&amp;Feature Detection</string>
+   </property>
+  </action>
+  <action name="actionVertex_Detection">
+   <property name="text">
+    <string>&amp;Vertex Detection</string>
+   </property>
+  </action>
+  <action name="actionEdge_Inference">
+   <property name="text">
+    <string>Edge Inference</string>
+   </property>
+  </action>
+  <action name="actionEdge_Inference_2">
+   <property name="text">
+    <string>&amp;Edge Inference</string>
+   </property>
+  </action>
+  <action name="actionTracking">
+   <property name="text">
+    <string>&amp;Tracking</string>
+   </property>
+  </action>
+  <action name="actionJoint_Segmentation_and_Tracking">
+   <property name="text">
+    <string>&amp;Joint Segmentation and Tracking</string>
+   </property>
+  </action>
+  <action name="actionMolecular_Estimation">
+   <property name="text">
+    <string>&amp;Molecular Estimation</string>
+   </property>
+  </action>
+  <action name="actionCell_Detector">
+   <property name="text">
+    <string>&amp;Cell Detector</string>
+   </property>
+  </action>
+  <action name="actionSelect_Vertex">
+   <property name="text">
+    <string>&amp;Select Vertex</string>
+   </property>
+  </action>
+  <action name="actionSelect_Edge">
+   <property name="text">
+    <string>Se&amp;lect Edge</string>
+   </property>
+  </action>
+  <action name="actionSelect_Cell">
+   <property name="text">
+    <string>Select &amp;Cell</string>
+   </property>
+  </action>
+  <action name="actionAdd_Vertex">
+   <property name="text">
+    <string>&amp;Add Vertex</string>
+   </property>
+  </action>
+  <action name="actionRemove_Vertex">
+   <property name="text">
+    <string>&amp;Remove Vertex</string>
+   </property>
+  </action>
+  <action name="actionAdd_Edge">
+   <property name="text">
+    <string>Add &amp;Edge</string>
+   </property>
+  </action>
+  <action name="actionRemove_Edge">
+   <property name="text">
+    <string>Re&amp;move Edge</string>
+   </property>
+  </action>
+  <action name="actionExport_data">
+   <property name="text">
+    <string>&amp;Export data</string>
+   </property>
+  </action>
+  <action name="actionExport_movie">
+   <property name="text">
+    <string>Export &amp;movie</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QVTKWidget</class>
+   <extends>QWidget</extends>
+   <header>QVTKWidget.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
