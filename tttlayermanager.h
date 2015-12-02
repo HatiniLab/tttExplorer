@@ -1,13 +1,21 @@
 #ifndef TTTLAYERMANAGER_H
 #define TTTLAYERMANAGER_H
 
-#include "layerdrawer.h"
+//#include "layerdrawer.h"
+#include <QDockWidget>
+#include <tttDataset.h>
 
-class tttLayerManager : public QObject
+#include <vtkRenderer.h>
+#include <vtkSmartPointer.h>
+namespace Ui {
+
+class tttLayerManager;
+}
+class tttLayerManager : public QDockWidget
 {
     Q_OBJECT
 public:
-    explicit tttLayerManager(QObject *parent = 0);
+    explicit tttLayerManager(QObject *parent = 0,const vtkSmartPointer<vtkRenderer> & renderer=0 );
 
 signals:
 
@@ -16,8 +24,8 @@ signals:
     void layerVisibilityChanged(bool);
     //..
 public slots:
-    void currentFrameChanged();
-    void datasetChanged();
+    void currentFrameChanged(unsigned long);
+    void datasetChanged(const ttt::Dataset::Pointer&);
     void datasetClosed();
     void drawLayer();
     void eraseLayer();
@@ -28,7 +36,12 @@ public slots:
     void setPickable();
 
 private:
-    std::list<LayerDrawer> m_Drawers;
+    ttt::Dataset::Pointer m_Dataset;
+    vtkSmartPointer<vtkRenderer> m_Renderer;
+    unsigned long m_CurrentFrame;
+
+    Ui::tttLayerManager * m_pUI;
+    //std::list<LayerDrawer> m_Drawers;
 };
 
 #endif // TTTLAYERMANAGER_H

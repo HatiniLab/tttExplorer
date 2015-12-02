@@ -5,11 +5,13 @@
 #include <vtkSmartPointer.h>
 #include <vtkRenderer.h>
 #include <vtkRenderWindow.h>
-#include <vtkRenderWindowInteractor.h>
+#include <QVTKInteractor.h>
+#include <vtkEventQtSlotConnect.h>
 
 
 #include "tttlayermanager.h"
-//#include "tttDataset.h"
+#include "tttDataset.h"
+#include "ttttimelapsemanager.h"
 namespace Ui {
 
 class tttExplorerMainWindow;
@@ -30,8 +32,9 @@ private slots:
     void    actionCloseDatasetTriggered();
 signals:
 
-    void datasetChanged();
+    void datasetChanged(const ttt::Dataset::Pointer&);
     void datasetClosed();
+    void frameChanged(unsigned long);
 
 private:
     Ui::tttExplorerMainWindow *m_pUI;
@@ -41,13 +44,19 @@ private:
     vtkSmartPointer<vtkRenderer>     m_Renderer;
     //Main renderWindow;
     vtkSmartPointer<vtkRenderWindow>    m_RenderWindow;
-    //Main
-    vtkSmartPointer<vtkRenderWindowInteractor> m_RenderWindowInteractor;
-    //add Signal mapper
-
+    //Main RenderWindowInteractor
+    vtkSmartPointer<QVTKInteractor> m_RenderWindowInteractor;
+    //Signal mapper
+	vtkSmartPointer<vtkEventQtSlotConnect> m_QtToVTKConnections;
 
     tttLayerManager * m_pLayerManager;
-    //Dataset m_Dataset;
+
+    tttTimelapseManager * m_pTimelapseManager;
+    ttt::Dataset::Pointer m_Dataset;
+
+    QString m_DatasetPath;
+
+    unsigned long m_CurrentFrame;
 };
 
 #endif // TTTEXPLORERMAINWINDOW_H

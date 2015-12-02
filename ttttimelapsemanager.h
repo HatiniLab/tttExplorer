@@ -1,22 +1,35 @@
 #ifndef TTTTIMELAPSEMANAGER_H
 #define TTTTIMELAPSEMANAGER_H
 
+#include <QDockWidget>
+#include "tttDataset.h"
+namespace Ui {
 
-class tttTimelapseManager : public QObject
+class tttTimelapseManager;
+
+}
+
+class tttTimelapseManager : public QDockWidget
 {
     Q_OBJECT
 public:
     explicit tttTimelapseManager(QObject *parent = 0);
 
 signals:
-    void currentFrameChanged();
+    void currentFrameChanged(unsigned long);
 public slots:
     void datasetClosed();
-    void datasetChanged();
+    void datasetChanged(const ttt::Dataset::Pointer & );
     void forward();
     void backward();
-    void play();
-    void pause();
+    void first();
+    void last();
+    //void play();
+    //void pause();
+private:
+    unsigned long m_CurrentFrame;
+    ttt::Dataset::Pointer m_Dataset;
+    Ui::tttTimelapseManager * m_pUI;
 };
 
 #endif // TTTTIMELAPSEMANAGER_H
