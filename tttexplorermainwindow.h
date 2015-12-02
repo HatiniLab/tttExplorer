@@ -9,7 +9,7 @@
 
 
 #include "tttlayermanager.h"
-#include "tttDataset.h"
+//#include "tttDataset.h"
 namespace Ui {
 
 class tttExplorerMainWindow;
@@ -47,7 +47,7 @@ private:
 
 
     tttLayerManager * m_pLayerManager;
-    Dataset m_Dataset;
+    //Dataset m_Dataset;
 };
 
 #endif // TTTEXPLORERMAINWINDOW_H
