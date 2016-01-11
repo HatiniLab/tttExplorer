@@ -23,12 +23,9 @@ find_package(VTK 6.3 COMPONENTS
   #vtkRenderingFreeType${VTK_RENDERING_BACKEND}
   #vtkRenderingVolume${VTK_RENDERING_BACKEND}
   vtkRenderingVolume
-  vtkRenderingVolume${VTK_RENDERING_BACKEND}
+  vtkRenderingVolumeOpenGL
   vtkViewsQt
-  vtkGUISupportQt
-  vtkGUISupportQt${VTK_RENDERING_BACKEND}
- 
- 
+  
   vtkjsoncpp
   vtkChartsCore
   #vtkRenderingContext${VTK_RENDERING_BACKEND}
@@ -51,17 +48,18 @@ endif()
 include_directories(
   ${CMAKE_CURRENT_BINARY_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}
+  ./Drawers/
 )
 include_directories(/home/morgan/Tracker/tttrelease/ttt/Modules/DataStorage/include)
 
 find_package(ITK REQUIRED)
 include(${ITK_USE_FILE})
 
-set( Srcs main.cpp tttexplorermainwindow.cpp tttlayermanager.cpp ttttimelapsemanager.cpp )
+set( Srcs main.cpp tttexplorermainwindow.cpp tttlayermanager.cpp ttttimelapsemanager.cpp tttlayermodel.cpp)
 
 set( Hdrs )
 
-set( MOC_Hdrs tttexplorermainwindow.h tttlayermanager.h ttttimelapsemanager.h)
+set( MOC_Hdrs tttexplorermainwindow.h tttlayermanager.h ttttimelapsemanager.h tttlayermodel.h)
 
 set( UIs tttexplorermainwindow.ui tttlayermanager.ui ttttimelapsemanager.ui)
 
@@ -76,7 +74,7 @@ if(${VTK_VERSION} VERSION_GREATER "6" AND VTK_QT_VERSION VERSION_GREATER "4")
   # CMAKE_AUTOMOC in ON so the MOC headers will be automatically wrapped.
   add_executable(tttExplorer MACOSX_BUNDLE ${Srcs} ${Hdrs} ${UISrcs} ${MOC_Hdrs}  )
   qt5_use_modules(tttExplorer Core Gui Widgets)
-  target_link_libraries(tttExplorer ${VTK_LIBRARIES} ${ITK_LIBRARIES} vtkGUISupportQt jsoncpp)
+  target_link_libraries(tttExplorer ${VTK_LIBRARIES} ${ITK_LIBRARIES} vtkGUISupportQt vtkRenderingVolume vtkRenderingVolumeOpenGL jsoncpp)
 else()
   QT4_WRAP_UI(UISrcs ${UI_FILES})
   QT4_WRAP_CPP(MOCSrcs ${QT_WRAP})

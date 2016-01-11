@@ -19,7 +19,7 @@ tttExplorerMainWindow::tttExplorerMainWindow(QWidget *parent) :
 	this->m_RenderWindowInteractor->SetDesiredUpdateRate(1.0);
 
 
-	m_pLayerManager= new tttLayerManager(this);
+	m_pLayerManager= new tttLayerManager(this,m_Renderer,m_RenderWindow);
     this->m_pLayerManager->setHidden(false);
     this->addDockWidget(Qt::RightDockWidgetArea,this->m_pLayerManager);
 
@@ -31,13 +31,24 @@ tttExplorerMainWindow::tttExplorerMainWindow(QWidget *parent) :
 	connect(this->m_pUI->actionOpenDataset,SIGNAL(triggered()),SLOT(actionOpenDatasetTriggered()));
 	connect(this->m_pUI->actionNewDataset,SIGNAL(triggered()),SLOT(actionNewDatasetTriggered()));
 
+	connect(this->m_pUI->actionShowLayers,SIGNAL(toggled(bool)),SLOT(actionShowLayersChanged(bool)));
+
 	connect(this,SIGNAL(frameChanged(unsigned long)),this->m_pLayerManager,SLOT(currentFrameChanged(unsigned long)));
 	connect(this->m_pTimelapseManager,SIGNAL(currentFrameChanged(unsigned long)),this->m_pLayerManager,SLOT(currentFrameChanged(unsigned long)));
 	connect(this,SIGNAL(datasetChanged(const ttt::Dataset::Pointer&)),this->m_pLayerManager,SLOT(datasetChanged(ttt::Dataset::Pointer)));
 	connect(this,SIGNAL(datasetChanged(const ttt::Dataset::Pointer&)),this->m_pTimelapseManager,SLOT(datasetChanged(ttt::Dataset::Pointer)));
+	connect(this->m_pUI->timeSlider,SIGNAL(valueChanged(int)),this,SLOT(actionTimesliderMoved(int)));
 
 
+}
 
+void tttExplorerMainWindow::actionShowLayersChanged(bool){
+    this->m_pLayerManager->setHidden(false);
+    this->addDockWidget(Qt::RightDockWidgetArea,this->m_pLayerManager);
+
+}
+void tttExplorerMainWindow::actionTimesliderMoved(int value){
+	emit frameChanged((unsigned long) value);
 }
 
 tttExplorerMainWindow::~tttExplorerMainWindow()
@@ -48,6 +59,13 @@ tttExplorerMainWindow::~tttExplorerMainWindow()
 void tttExplorerMainWindow::actionNewDatasetTriggered(){
 
 	emit datasetChanged(m_Dataset);
+}
+void tttExplorerMainWindow::setupUI(){
+
+	this->m_pUI->timeSlider->setMinimum(m_Dataset->GetFirstTimestamp());
+	this->m_pUI->timeSlider->setMaximum(m_Dataset->GetLastTimestamp());
+	this->m_pUI->timeSlider->setEnabled(true);
+	this->m_pUI->centralQVTKWidget->setEnabled(true);
 }
 void tttExplorerMainWindow::actionOpenDatasetTriggered(){
 
@@ -67,6 +85,7 @@ void tttExplorerMainWindow::actionOpenDatasetTriggered(){
         this->m_Dataset->SetPath(this->m_DatasetPath.toStdString());
         if(this->m_Dataset->Load()){
         	emit datasetChanged(m_Dataset);
+        	this->setupUI();
             this->m_CurrentFrame=0;
             emit frameChanged(this->m_CurrentFrame);
 #if 0

@@ -18,10 +18,19 @@
     <item row="1" column="0">
      <widget class="QVTKWidget" name="centralQVTKWidget"/>
     </item>
-    <item row="0" column="0">
-     <widget class="QSlider" name="horizontalSlider">
+    <item row="2" column="0">
+     <widget class="QSlider" name="timeSlider">
+      <property name="tracking">
+       <bool>false</bool>
+      </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="tickPosition">
+       <enum>QSlider::TicksBelow</enum>
+      </property>
+      <property name="tickInterval">
+       <number>1</number>
       </property>
      </widget>
     </item>
@@ -109,6 +118,8 @@
     <property name="title">
      <string>Wi&amp;ndow</string>
     </property>
+    <addaction name="separator"/>
+    <addaction name="actionShowLayers"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -296,6 +307,14 @@
   <action name="actionExport_movie">
    <property name="text">
     <string>Export &amp;movie</string>
+   </property>
+  </action>
+  <action name="actionShowLayers">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Layers</string>
    </property>
   </action>
  </widget>

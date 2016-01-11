@@ -24,12 +24,17 @@ class tttExplorerMainWindow : public QMainWindow
 public:
     explicit tttExplorerMainWindow(QWidget *parent = 0);
     ~tttExplorerMainWindow();
+private:
+    void	setupUI();
 
 private slots:
     //1. Project based slots
+	void	actionTimesliderMoved(int);
     void    actionOpenDatasetTriggered();
     void    actionNewDatasetTriggered();
     void    actionCloseDatasetTriggered();
+
+    void	actionShowLayersChanged(bool);
 signals:
 
     void datasetChanged(const ttt::Dataset::Pointer&);

@@ -4,9 +4,12 @@
 //#include "layerdrawer.h"
 #include <QDockWidget>
 #include <tttDataset.h>
-
+#include <tttLayer.h>
 #include <vtkRenderer.h>
 #include <vtkSmartPointer.h>
+
+#include "tttlayermodel.h"
+#include "tttDrawer.h"
 namespace Ui {
 
 class tttLayerManager;
@@ -15,7 +18,7 @@ class tttLayerManager : public QDockWidget
 {
     Q_OBJECT
 public:
-    explicit tttLayerManager(QObject *parent = 0,const vtkSmartPointer<vtkRenderer> & renderer=0 );
+    explicit tttLayerManager(QObject *parent = 0,const vtkSmartPointer<vtkRenderer> & renderer =0,const vtkSmartPointer<vtkRenderWindow> & renderWindow=0 );
 
 signals:
 
@@ -29,19 +32,29 @@ public slots:
     void datasetClosed();
     void drawLayer();
     void eraseLayer();
-    void showLayer();
-    void hideLayer();
+    void showLayer(ttt::Dataset::LayerHandlerType &);
+    void hideLayer(ttt::Dataset::LayerHandlerType &);
+
+
     void addLayer();
     void removeLayer();
     void setPickable();
 
 private:
     ttt::Dataset::Pointer m_Dataset;
+    vtkSmartPointer<vtkRenderWindow> m_RenderWindow;
     vtkSmartPointer<vtkRenderer> m_Renderer;
     unsigned long m_CurrentFrame;
 
     Ui::tttLayerManager * m_pUI;
     //std::list<LayerDrawer> m_Drawers;
+
+
+
+    tttLayerModel * m_LayerModel;
+
+
+    std::map<ttt::Layer::LayerHandlerType,ttt::Drawer::Pointer> m_Drawers;
 };
 
 #endif // TTTLAYERMANAGER_H
