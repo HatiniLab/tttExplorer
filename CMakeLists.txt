@@ -55,13 +55,13 @@ include_directories(/home/morgan/Tracker/tttrelease/ttt/Modules/DataStorage/incl
 find_package(ITK REQUIRED)
 include(${ITK_USE_FILE})
 
-set( Srcs main.cpp tttexplorermainwindow.cpp tttlayermanager.cpp ttttimelapsemanager.cpp tttlayermodel.cpp)
+set( Srcs main.cpp tttexplorermainwindow.cpp tttlayermanager.cpp ttttimelapsemanager.cpp tttlayermodel.cpp tttnewprojectdialog.cpp tttaddimagelayerdialog.cpp)
 
 set( Hdrs )
 
-set( MOC_Hdrs tttexplorermainwindow.h tttlayermanager.h ttttimelapsemanager.h tttlayermodel.h)
+set( MOC_Hdrs tttexplorermainwindow.h tttlayermanager.h ttttimelapsemanager.h tttlayermodel.h tttnewprojectdialog.h tttaddimagelayerdialog.h)
 
-set( UIs tttexplorermainwindow.ui tttlayermanager.ui ttttimelapsemanager.ui)
+set( UIs tttexplorermainwindow.ui tttlayermanager.ui ttttimelapsemanager.ui tttnewprojectdialog.ui tttaddimagelayerdialog.ui)
 
 #set( QRCs Icons/icons.qrc )
 

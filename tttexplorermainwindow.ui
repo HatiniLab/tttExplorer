@@ -49,10 +49,20 @@
     <property name="title">
      <string>F&amp;ile</string>
     </property>
+    <widget class="QMenu" name="menuExport">
+     <property name="title">
+      <string>Export</string>
+     </property>
+     <addaction name="actionExportData"/>
+     <addaction name="actionExportMovie"/>
+    </widget>
     <addaction name="actionNewDataset"/>
     <addaction name="actionOpenDataset"/>
-    <addaction name="actionExport_data"/>
-    <addaction name="actionExport_movie"/>
+    <addaction name="actionCloseDataset"/>
+    <addaction name="separator"/>
+    <addaction name="menuExport"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -68,7 +78,7 @@
      <property name="title">
       <string>&amp;Segmentation</string>
      </property>
-     <addaction name="actionEdge_Inference_2"/>
+     <addaction name="actionEdgeInference"/>
     </widget>
     <addaction name="actionDeconvolution"/>
     <addaction name="actionDiffusion"/>
@@ -76,9 +86,9 @@
     <addaction name="actionVertex_Detection"/>
     <addaction name="menuSegmentation"/>
     <addaction name="actionTracking"/>
-    <addaction name="actionJoint_Segmentation_and_Tracking"/>
+    <addaction name="actionJointSegmentationAndTracking"/>
     <addaction name="actionMolecular_Estimation"/>
-    <addaction name="actionCell_Detector"/>
+    <addaction name="actionCellDetector"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
@@ -86,8 +96,6 @@
     </property>
     <addaction name="separator"/>
     <addaction name="actionUndo"/>
-    <addaction name="actionAddFrame"/>
-    <addaction name="actionRemove_Frame"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -98,21 +106,20 @@
     <property name="title">
      <string>Layers</string>
     </property>
-    <addaction name="actionAdd_Layer"/>
-    <addaction name="actionRemove_Layer"/>
-    <addaction name="actionShow_Layer"/>
+    <addaction name="actionAddLayer"/>
+    <addaction name="actionRemoveLayer"/>
    </widget>
    <widget class="QMenu" name="menuSelect">
     <property name="title">
      <string>Select</string>
     </property>
-    <addaction name="actionSelect_Vertex"/>
-    <addaction name="actionSelect_Edge"/>
-    <addaction name="actionSelect_Cell"/>
-    <addaction name="actionAdd_Vertex"/>
-    <addaction name="actionRemove_Vertex"/>
-    <addaction name="actionAdd_Edge"/>
-    <addaction name="actionRemove_Edge"/>
+    <addaction name="actionSelectVertex"/>
+    <addaction name="actionSelectEdge"/>
+    <addaction name="actionSelectCell"/>
+    <addaction name="actionAddVertex"/>
+    <addaction name="actionRemoveVertex"/>
+    <addaction name="actionAddEdge"/>
+    <addaction name="actionRemoveEdge"/>
    </widget>
    <widget class="QMenu" name="menuWindow">
     <property name="title">
@@ -121,9 +128,16 @@
     <addaction name="separator"/>
     <addaction name="actionShowLayers"/>
    </widget>
+   <widget class="QMenu" name="menuFrame">
+    <property name="title">
+     <string>Frame</string>
+    </property>
+    <addaction name="actionAddFrame"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuLayers"/>
+   <addaction name="menuFrame"/>
    <addaction name="menuView"/>
    <addaction name="menuFilters"/>
    <addaction name="menuSelect"/>
@@ -191,32 +205,19 @@
     <string>&amp;Reset</string>
    </property>
   </action>
-  <action name="actionAddFrame">
-   <property name="text">
-    <string>&amp;Add Frame</string>
-   </property>
-  </action>
   <action name="actionRemove_Frame">
    <property name="text">
     <string>&amp;Remove Frame</string>
    </property>
   </action>
-  <action name="actionAdd_Layer">
+  <action name="actionAddLayer">
    <property name="text">
     <string>&amp;Add Layer</string>
    </property>
   </action>
-  <action name="actionRemove_Layer">
+  <action name="actionRemoveLayer">
    <property name="text">
     <string>&amp;Remove Layer</string>
-   </property>
-  </action>
-  <action name="actionShow_Layer">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>&amp;Show Layer</string>
    </property>
   </action>
   <action name="actionUndo">
@@ -234,12 +235,12 @@
     <string>&amp;Vertex Detection</string>
    </property>
   </action>
-  <action name="actionEdge_Inference">
+  <action name="actionEdgeInference_2">
    <property name="text">
     <string>Edge Inference</string>
    </property>
   </action>
-  <action name="actionEdge_Inference_2">
+  <action name="actionEdgeInference">
    <property name="text">
     <string>&amp;Edge Inference</string>
    </property>
@@ -249,7 +250,7 @@
     <string>&amp;Tracking</string>
    </property>
   </action>
-  <action name="actionJoint_Segmentation_and_Tracking">
+  <action name="actionJointSegmentationAndTracking">
    <property name="text">
     <string>&amp;Joint Segmentation and Tracking</string>
    </property>
@@ -259,52 +260,52 @@
     <string>&amp;Molecular Estimation</string>
    </property>
   </action>
-  <action name="actionCell_Detector">
+  <action name="actionCellDetector">
    <property name="text">
     <string>&amp;Cell Detector</string>
    </property>
   </action>
-  <action name="actionSelect_Vertex">
+  <action name="actionSelectVertex">
    <property name="text">
     <string>&amp;Select Vertex</string>
    </property>
   </action>
-  <action name="actionSelect_Edge">
+  <action name="actionSelectEdge">
    <property name="text">
     <string>Se&amp;lect Edge</string>
    </property>
   </action>
-  <action name="actionSelect_Cell">
+  <action name="actionSelectCell">
    <property name="text">
     <string>Select &amp;Cell</string>
    </property>
   </action>
-  <action name="actionAdd_Vertex">
+  <action name="actionAddVertex">
    <property name="text">
     <string>&amp;Add Vertex</string>
    </property>
   </action>
-  <action name="actionRemove_Vertex">
+  <action name="actionRemoveVertex">
    <property name="text">
     <string>&amp;Remove Vertex</string>
    </property>
   </action>
-  <action name="actionAdd_Edge">
+  <action name="actionAddEdge">
    <property name="text">
     <string>Add &amp;Edge</string>
    </property>
   </action>
-  <action name="actionRemove_Edge">
+  <action name="actionRemoveEdge">
    <property name="text">
     <string>Re&amp;move Edge</string>
    </property>
   </action>
-  <action name="actionExport_data">
+  <action name="actionExportData">
    <property name="text">
     <string>&amp;Export data</string>
    </property>
   </action>
-  <action name="actionExport_movie">
+  <action name="actionExportMovie">
    <property name="text">
     <string>Export &amp;movie</string>
    </property>
@@ -315,6 +316,26 @@
    </property>
    <property name="text">
     <string>Show Layers</string>
+   </property>
+  </action>
+  <action name="actionImage">
+   <property name="text">
+    <string>Image</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionCloseDataset">
+   <property name="text">
+    <string>Close Dataset</string>
+   </property>
+  </action>
+  <action name="actionAddFrame">
+   <property name="text">
+    <string>Add Frame</string>
    </property>
   </action>
  </widget>

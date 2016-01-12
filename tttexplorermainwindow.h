@@ -13,54 +13,128 @@
 #include "tttDataset.h"
 #include "ttttimelapsemanager.h"
 namespace Ui {
-
+/**
+ * TODO
+ */
 class tttExplorerMainWindow;
 }
-
+/**
+ * TODO
+ */
 class tttExplorerMainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
+	/**
+	 * TODO
+	 */
     explicit tttExplorerMainWindow(QWidget *parent = 0);
+    /**
+     * TODO
+     */
     ~tttExplorerMainWindow();
 private:
+    /**
+     * TODO
+     */
     void	setupUI();
 
 private slots:
-    //1. Project based slots
+	/**
+	 * TODO
+	 */
 	void	actionTimesliderMoved(int);
+
+	/**
+	 * TODO
+	 */
     void    actionOpenDatasetTriggered();
+    /**
+     * TODO
+     */
     void    actionNewDatasetTriggered();
+    /**
+     * TODO
+     */
     void    actionCloseDatasetTriggered();
-
+    /**
+     * TODO
+     */
     void	actionShowLayersChanged(bool);
-signals:
+    /**
+     * TODO
+     */
+    void	actionNewLayerTriggered();
 
+    /**
+     * TODO
+     */
+    void	actionAddFrameTriggered();
+    /**
+     * TODO
+     */
+    void slotDatasetChanged(const ttt::Dataset::Pointer&);
+signals:
+	/**
+	 * TODO
+	 */
     void datasetChanged(const ttt::Dataset::Pointer&);
+    /**
+     * TODO
+     */
     void datasetClosed();
+    /**
+     * TODO
+     */
     void frameChanged(unsigned long);
 
 private:
+    /**
+     * TODO
+     */
     Ui::tttExplorerMainWindow *m_pUI;
 
     //Rendering engine
     //Main application renderer
+    /**
+     * TODO
+     */
     vtkSmartPointer<vtkRenderer>     m_Renderer;
     //Main renderWindow;
+    /**
+     * TODO
+     */
     vtkSmartPointer<vtkRenderWindow>    m_RenderWindow;
     //Main RenderWindowInteractor
+    /**
+     * TODO
+     */
     vtkSmartPointer<QVTKInteractor> m_RenderWindowInteractor;
     //Signal mapper
+    /**
+     * TODO
+     */
 	vtkSmartPointer<vtkEventQtSlotConnect> m_QtToVTKConnections;
-
+	/**
+	 * TODO
+	 */
     tttLayerManager * m_pLayerManager;
-
+    /**
+     * TODO
+     */
     tttTimelapseManager * m_pTimelapseManager;
+    /**
+     * TODO
+     */
     ttt::Dataset::Pointer m_Dataset;
-
+    /**
+     * TODO
+     */
     QString m_DatasetPath;
-
+    /**
+     * TODO
+     */
     unsigned long m_CurrentFrame;
 };
 

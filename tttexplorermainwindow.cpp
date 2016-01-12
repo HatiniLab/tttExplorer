@@ -1,5 +1,7 @@
 #include "tttexplorermainwindow.h"
 #include "ui_tttexplorermainwindow.h"
+#include "tttnewprojectdialog.h"
+#include "tttaddimagelayerdialog.h"
 #include <QFileDialog>
 tttExplorerMainWindow::tttExplorerMainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -31,15 +33,21 @@ tttExplorerMainWindow::tttExplorerMainWindow(QWidget *parent) :
 	connect(this->m_pUI->actionOpenDataset,SIGNAL(triggered()),SLOT(actionOpenDatasetTriggered()));
 	connect(this->m_pUI->actionNewDataset,SIGNAL(triggered()),SLOT(actionNewDatasetTriggered()));
 
+	connect(this->m_pUI->actionAddLayer,SIGNAL(triggered()),SLOT(actionNewLayerTriggered()));
 	connect(this->m_pUI->actionShowLayers,SIGNAL(toggled(bool)),SLOT(actionShowLayersChanged(bool)));
 
 	connect(this,SIGNAL(frameChanged(unsigned long)),this->m_pLayerManager,SLOT(currentFrameChanged(unsigned long)));
 	connect(this->m_pTimelapseManager,SIGNAL(currentFrameChanged(unsigned long)),this->m_pLayerManager,SLOT(currentFrameChanged(unsigned long)));
 	connect(this,SIGNAL(datasetChanged(const ttt::Dataset::Pointer&)),this->m_pLayerManager,SLOT(datasetChanged(ttt::Dataset::Pointer)));
 	connect(this,SIGNAL(datasetChanged(const ttt::Dataset::Pointer&)),this->m_pTimelapseManager,SLOT(datasetChanged(ttt::Dataset::Pointer)));
+	connect(this,SIGNAL(datasetChanged(const ttt::Dataset::Pointer&)),this,SLOT(slotDatasetChanged(ttt::Dataset::Pointer)));
 	connect(this->m_pUI->timeSlider,SIGNAL(valueChanged(int)),this,SLOT(actionTimesliderMoved(int)));
 
 
+}
+
+void tttExplorerMainWindow::slotDatasetChanged(const ttt::Dataset::Pointer & dataset){
+	m_Dataset=dataset;
 }
 
 void tttExplorerMainWindow::actionShowLayersChanged(bool){
@@ -56,10 +64,41 @@ tttExplorerMainWindow::~tttExplorerMainWindow()
     delete m_pUI;
 }
 
-void tttExplorerMainWindow::actionNewDatasetTriggered(){
+void tttExplorerMainWindow::actionAddFrameTriggered(){
+#if 0
+	QStringList files = wizard.getSelectedFiles();
 
-	emit datasetChanged(m_Dataset);
+	typedef itk::ImageFileReader<ttt::Dataset::FloatImageType> ReaderType;
+	ReaderType::Pointer reader = ReaderType::New();
+
+		Layer newLayer("RawImage","",Layer::IMAGE);
+		ttt::Dataset::LayerHandlerType layer = m_Dataset.AddLayer(newLayer);
+		for(QStringList::Iterator it = files.begin();it!=files.end();++it){
+			reader->SetFileName((*it).toStdString());
+			Frame newFrame = m_Dataset.NewFrame(,);
+
+		}
+#endif
 }
+void tttExplorerMainWindow::actionNewLayerTriggered(){
+	tttAddImageLayerDialog dialog(this);
+	dialog.setDataset(m_Dataset);
+	connect(&dialog, &tttAddImageLayerDialog::datasetChanged, this, &tttExplorerMainWindow::datasetChanged);
+	dialog.exec();
+	disconnect(&dialog, &tttAddImageLayerDialog::datasetChanged, this, &tttExplorerMainWindow::datasetChanged);
+
+
+}
+void tttExplorerMainWindow::actionNewDatasetTriggered(){
+	tttNewProjectDialog dialog(this);
+	connect(&dialog, &tttNewProjectDialog::datasetChanged, this, &tttExplorerMainWindow::datasetChanged);
+
+	dialog.exec();
+
+	disconnect(&dialog, &tttNewProjectDialog::datasetChanged, this, &tttExplorerMainWindow::datasetChanged);
+
+}
+
 void tttExplorerMainWindow::setupUI(){
 
 	this->m_pUI->timeSlider->setMinimum(m_Dataset->GetFirstTimestamp());
