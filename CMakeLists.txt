@@ -55,15 +55,15 @@ include_directories(/home/morgan/Tracker/tttrelease/ttt/Modules/DataStorage/incl
 find_package(ITK REQUIRED)
 include(${ITK_USE_FILE})
 
-set( Srcs main.cpp tttexplorermainwindow.cpp tttlayermanager.cpp ttttimelapsemanager.cpp tttlayermodel.cpp tttnewprojectdialog.cpp tttaddimagelayerdialog.cpp)
+set( Srcs main.cpp tttexplorermainwindow.cpp tttlayermanager.cpp ttttimelapsemanager.cpp tttlayermodel.cpp tttnewprojectdialog.cpp tttaddlayerdialog.cpp tttaddframedialog.cpp)
 
 set( Hdrs )
 
-set( MOC_Hdrs tttexplorermainwindow.h tttlayermanager.h ttttimelapsemanager.h tttlayermodel.h tttnewprojectdialog.h tttaddimagelayerdialog.h)
+set( MOC_Hdrs tttexplorermainwindow.h tttlayermanager.h ttttimelapsemanager.h tttlayermodel.h tttnewprojectdialog.h tttaddlayerdialog.h tttaddframedialog.h)
 
-set( UIs tttexplorermainwindow.ui tttlayermanager.ui ttttimelapsemanager.ui tttnewprojectdialog.ui tttaddimagelayerdialog.ui)
+set( UIs tttexplorermainwindow.ui tttlayermanager.ui ttttimelapsemanager.ui tttnewprojectdialog.ui tttaddlayerdialog.ui tttaddframedialog.ui)
 
-#set( QRCs Icons/icons.qrc )
+set( QRCs Icons/icons.qrc )
 
 
 # Instruct CMake to run moc automatically when needed.
@@ -71,10 +71,11 @@ set(CMAKE_AUTOMOC ON)
 
 if(${VTK_VERSION} VERSION_GREATER "6" AND VTK_QT_VERSION VERSION_GREATER "4")
   qt5_wrap_ui(UISrcs ${UIs}  )
+  qt5_add_resources(QRC_Srcs ${QRCs} )
   # CMAKE_AUTOMOC in ON so the MOC headers will be automatically wrapped.
-  add_executable(tttExplorer MACOSX_BUNDLE ${Srcs} ${Hdrs} ${UISrcs} ${MOC_Hdrs}  )
+  add_executable(tttExplorer MACOSX_BUNDLE ${Srcs} ${Hdrs} ${UISrcs} ${MOC_Hdrs}     ${QRC_Srcs} )
   qt5_use_modules(tttExplorer Core Gui Widgets)
-  target_link_libraries(tttExplorer ${VTK_LIBRARIES} ${ITK_LIBRARIES} vtkGUISupportQt vtkRenderingVolume vtkRenderingVolumeOpenGL jsoncpp)
+  target_link_libraries(tttExplorer ${VTK_LIBRARIES} ${ITK_LIBRARIES} vtkGUISupportQt vtkRenderingVolume vtkRenderingVolumeOpenGL vtkjsoncpp)
 else()
   QT4_WRAP_UI(UISrcs ${UI_FILES})
   QT4_WRAP_CPP(MOCSrcs ${QT_WRAP})

@@ -61,12 +61,13 @@ private slots:
     /**
      * TODO
      */
-    void	actionShowLayersChanged(bool);
-    /**
-     * TODO
-     */
     void	actionNewLayerTriggered();
 
+    /**
+     *
+     *
+     */
+    void	actionRemoveLayerTriggered();
     /**
      * TODO
      */
@@ -74,7 +75,27 @@ private slots:
     /**
      * TODO
      */
+    void	actionRemoveFrameTriggered();
+
+    /**
+     * TODO
+     */
+    void 	actionExitTriggered();
+    /**
+     * TODO
+     */
     void slotDatasetChanged(const ttt::Dataset::Pointer&);
+
+    /**
+     * TODO
+     */
+    void slotSelectedLayerChanged(const ttt::Dataset::LayerHandlerType & layer);
+
+    void slotSelectedLayerCleared(const ttt::Dataset::LayerHandlerType & layer);
+
+
+    void slotCurrentFrameChanged(unsigned long);
+
 signals:
 	/**
 	 * TODO
@@ -87,7 +108,7 @@ signals:
     /**
      * TODO
      */
-    void frameChanged(unsigned long);
+    //void frameChanged(unsigned long);
 
 private:
     /**

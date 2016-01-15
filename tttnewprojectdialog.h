@@ -18,6 +18,8 @@ public:
 public slots:
 	virtual void accept();
 
+	void selectDirectory();
+
 signals:
 
 	void datasetChanged(const ttt::Dataset::Pointer & dataset);

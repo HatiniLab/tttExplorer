@@ -6,20 +6,16 @@
 #include "tttDataset.h"
 
 namespace Ui {
-class tttAddImageLayerDialog;
+class tttAddLayerDialog;
 }
 
-class tttAddImageLayerDialog : public QDialog
+class tttAddLayerDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit tttAddImageLayerDialog(QWidget *parent = 0);
-    ~tttAddImageLayerDialog();
-
-    inline void setDataset(ttt::Dataset::Pointer & dataset){
-    	m_Dataset=dataset;
-    }
+    explicit tttAddLayerDialog(const ttt::Dataset::Pointer & dataset,QWidget *parent = 0);
+    ~tttAddLayerDialog();
 
 public slots:
 	virtual void accept();
@@ -28,7 +24,7 @@ signals:
 	void datasetChanged(const ttt::Dataset::Pointer & dataset);
 
 private:
-    Ui::tttAddImageLayerDialog *m_pUI;
+    Ui::tttAddLayerDialog *m_pUI;
     ttt::Dataset::Pointer  m_Dataset;
 
 };

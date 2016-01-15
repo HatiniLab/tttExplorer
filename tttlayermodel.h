@@ -19,7 +19,6 @@ public:
 	 * Get the number of layers at the current frame
 	 */
 	int rowCount(const QModelIndex &parent = QModelIndex()) const {
-		std::cout << "tttLayerModel->rowCount " << m_Layers.size() << std::endl;
 		return m_Layers.size();
 
 	}
@@ -50,7 +49,6 @@ public:
 	 * Return the contents
 	 */
 	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const {
-		std::cout << "Data " << index.row() << " " << index.column() << std::endl;
 		if (role == Qt::DisplayRole) {
 			if (index.column() == 1) {
 				//return QString::fromStdString(static_cast<std::string>(m_Layers[index.row()]));
@@ -61,14 +59,20 @@ public:
 		}
 		if (role == Qt::CheckStateRole) {  // this shows the checkbox
 			if (index.column() == 0) {
-				auto layer = m_Layers[index.row()];
-				bool aBool = m_ShowLayer[layer];
-				if (aBool)
+				ttt::Dataset::LayerHandlerType layer = m_Layers[index.row()];
+				if (m_ShowLayer.at(layer))
 					return Qt::Checked;
 				else
 					return Qt::Unchecked;
 			}
 			return QVariant();
+		}
+		if(role == Qt::TextAlignmentRole	){
+			if(index.column()==0){
+				return Qt::AlignCenter;
+			}else{
+				return Qt::AlignLeft;
+			}
 		}
 		return QVariant();
 	}
@@ -90,11 +94,8 @@ public:
 
 	bool setData(const QModelIndex &index,const QVariant &value, int role = Qt::EditRole)
 	{
-		std::cout << "setData " << index.row() << " " << index.column() << " " << role << std::endl;
-
 	    if ( index.isValid() && role == Qt::CheckStateRole) {
 	    	if(index.column()==0){
-	    		std::cout << "\t" << value.toBool() << std::endl;
 	    		auto layer = m_Layers[index.row()];
 	    		m_ShowLayer[layer]=value.toBool();
 
@@ -116,8 +117,6 @@ public slots:
 	 * Update information about the current frame
 	 */
 	void frameChanged(unsigned long frame) {
-		std::cout << "tttLayerModel->frameChanged " << frame << std::endl;
-
 		m_CurrentFrame = frame;
 
 		auto resultSet = m_Dataset->GetFramesAtTimestamp(frame);
@@ -132,7 +131,6 @@ public slots:
 	 * Update the dataset
 	 */
 	void datasetChanged(ttt::Dataset::Pointer & dataset) {
-		std::cout << "tttLayerModel->datasetChanged " <<std::endl;
 
 		m_Dataset = dataset;
 	}
@@ -141,10 +139,15 @@ public slots:
 	 */
 	void datasetClosed() {
 		m_Dataset = 0;
+		m_Layers.clear();
+		m_ShowLayer.clear();
 	}
 
 	bool getVisibility(const ttt::Dataset::LayerHandlerType & layer ){
 		return m_ShowLayer[layer];
+	}
+	ttt::Dataset::LayerHandlerType getLayerAtRow(int row){
+		return m_Layers[row];
 	}
 signals:
 	void showLayer(ttt::Dataset::LayerHandlerType &);

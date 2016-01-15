@@ -11,15 +11,22 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>tttExplorerMainWindow</string>
+   <string>ttt Explorer</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="1" column="0">
-     <widget class="QVTKWidget" name="centralQVTKWidget"/>
+     <widget class="QVTKWidget" name="centralQVTKWidget">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+     </widget>
     </item>
     <item row="2" column="0">
      <widget class="QSlider" name="timeSlider">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="tracking">
        <bool>false</bool>
       </property>
@@ -126,13 +133,13 @@
      <string>Wi&amp;ndow</string>
     </property>
     <addaction name="separator"/>
-    <addaction name="actionShowLayers"/>
    </widget>
    <widget class="QMenu" name="menuFrame">
     <property name="title">
      <string>Frame</string>
     </property>
     <addaction name="actionAddFrame"/>
+    <addaction name="actionRemoveFrame"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -151,56 +158,49 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionNewDataset"/>
+   <addaction name="actionOpenDataset"/>
+   <addaction name="actionCloseDataset"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <widget class="QDockWidget" name="tissueTreeDockWidget">
-   <property name="windowTitle">
-    <string>Tiss&amp;ue Tree</string>
-   </property>
-   <attribute name="dockWidgetArea">
-    <number>8</number>
-   </attribute>
-   <widget class="QWidget" name="dockWidgetContents_3"/>
-  </widget>
-  <widget class="QDockWidget" name="PlotArea">
-   <property name="windowTitle">
-    <string>&amp;Plot Area</string>
-   </property>
-   <attribute name="dockWidgetArea">
-    <number>8</number>
-   </attribute>
-   <widget class="QWidget" name="dockWidgetContents_4"/>
-  </widget>
-  <widget class="QDockWidget" name="JobManager">
-   <property name="windowTitle">
-    <string>&amp;Job Manager</string>
-   </property>
-   <attribute name="dockWidgetArea">
-    <number>2</number>
-   </attribute>
-   <widget class="QWidget" name="dockWidgetContents_5"/>
-  </widget>
   <action name="actionDeconvolution">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>&amp;Deconvolution</string>
    </property>
   </action>
   <action name="actionDiffusion">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>D&amp;iffusion</string>
    </property>
   </action>
   <action name="actionNewDataset">
+   <property name="icon">
+    <iconset resource="Icons/icons.qrc">
+     <normaloff>:/Icons/newfile.svg</normaloff>:/Icons/newfile.svg</iconset>
+   </property>
    <property name="text">
     <string>New Dataset</string>
    </property>
   </action>
   <action name="actionOpenDataset">
+   <property name="icon">
+    <iconset resource="Icons/icons.qrc">
+     <normaloff>:/Icons/open.png</normaloff>:/Icons/open.png</iconset>
+   </property>
    <property name="text">
     <string>Open Dataset</string>
    </property>
   </action>
   <action name="actionReset">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>&amp;Reset</string>
    </property>
@@ -211,26 +211,41 @@
    </property>
   </action>
   <action name="actionAddLayer">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>&amp;Add Layer</string>
    </property>
   </action>
   <action name="actionRemoveLayer">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>&amp;Remove Layer</string>
    </property>
   </action>
   <action name="actionUndo">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>&amp;Undo</string>
    </property>
   </action>
   <action name="actionFeature_Detection">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>&amp;Feature Detection</string>
    </property>
   </action>
   <action name="actionVertex_Detection">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>&amp;Vertex Detection</string>
    </property>
@@ -241,81 +256,115 @@
    </property>
   </action>
   <action name="actionEdgeInference">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>&amp;Edge Inference</string>
    </property>
   </action>
   <action name="actionTracking">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>&amp;Tracking</string>
    </property>
   </action>
   <action name="actionJointSegmentationAndTracking">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>&amp;Joint Segmentation and Tracking</string>
    </property>
   </action>
   <action name="actionMolecular_Estimation">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>&amp;Molecular Estimation</string>
    </property>
   </action>
   <action name="actionCellDetector">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>&amp;Cell Detector</string>
    </property>
   </action>
   <action name="actionSelectVertex">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>&amp;Select Vertex</string>
    </property>
   </action>
   <action name="actionSelectEdge">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Se&amp;lect Edge</string>
    </property>
   </action>
   <action name="actionSelectCell">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Select &amp;Cell</string>
    </property>
   </action>
   <action name="actionAddVertex">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>&amp;Add Vertex</string>
    </property>
   </action>
   <action name="actionRemoveVertex">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>&amp;Remove Vertex</string>
    </property>
   </action>
   <action name="actionAddEdge">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Add &amp;Edge</string>
    </property>
   </action>
   <action name="actionRemoveEdge">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Re&amp;move Edge</string>
    </property>
   </action>
   <action name="actionExportData">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>&amp;Export data</string>
    </property>
   </action>
   <action name="actionExportMovie">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Export &amp;movie</string>
-   </property>
-  </action>
-  <action name="actionShowLayers">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Show Layers</string>
    </property>
   </action>
   <action name="actionImage">
@@ -324,18 +373,39 @@
    </property>
   </action>
   <action name="actionExit">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Exit</string>
    </property>
   </action>
   <action name="actionCloseDataset">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="Icons/icons.qrc">
+     <normaloff>:/Icons/close.png</normaloff>:/Icons/close.png</iconset>
+   </property>
    <property name="text">
     <string>Close Dataset</string>
    </property>
   </action>
   <action name="actionAddFrame">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Add Frame</string>
+   </property>
+  </action>
+  <action name="actionRemoveFrame">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Remove Frame</string>
    </property>
   </action>
  </widget>
@@ -347,6 +417,8 @@
    <header>QVTKWidget.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="Icons/icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

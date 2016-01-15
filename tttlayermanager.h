@@ -18,13 +18,15 @@ class tttLayerManager : public QDockWidget
 {
     Q_OBJECT
 public:
-    explicit tttLayerManager(QObject *parent = 0,const vtkSmartPointer<vtkRenderer> & renderer =0,const vtkSmartPointer<vtkRenderWindow> & renderWindow=0 );
+    explicit tttLayerManager(QWidget *parent = 0,const vtkSmartPointer<vtkRenderer> & renderer =0,const vtkSmartPointer<vtkRenderWindow> & renderWindow=0 );
 
 signals:
 
     void layerDeleted();
     void newLayer();
     void layerVisibilityChanged(bool);
+    void selectedLayerChanged(const ttt::Dataset::LayerHandlerType &);
+    void selectedLayerCleared(const ttt::Dataset::LayerHandlerType &);
     //..
 public slots:
     void currentFrameChanged(unsigned long);
@@ -35,10 +37,11 @@ public slots:
     void showLayer(ttt::Dataset::LayerHandlerType &);
     void hideLayer(ttt::Dataset::LayerHandlerType &);
 
-
     void addLayer();
     void removeLayer();
     void setPickable();
+private slots:
+	void rowChanged(const QModelIndex & current , const QModelIndex & previous);
 
 private:
     ttt::Dataset::Pointer m_Dataset;

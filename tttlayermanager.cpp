@@ -1,7 +1,7 @@
 #include "tttlayermanager.h"
 #include "ui_tttlayermanager.h"
 #include <tttMinMaxVolumeDrawer.h>
-tttLayerManager::tttLayerManager(QObject *parent,const vtkSmartPointer<vtkRenderer> & renderer,const vtkSmartPointer<vtkRenderWindow> & renderWindow ) :
+tttLayerManager::tttLayerManager(QWidget *parent,const vtkSmartPointer<vtkRenderer> & renderer,const vtkSmartPointer<vtkRenderWindow> & renderWindow ) :
 		QDockWidget(parent),
 		m_Renderer(renderer),
 		m_RenderWindow(renderWindow),
@@ -14,10 +14,23 @@ tttLayerManager::tttLayerManager(QObject *parent,const vtkSmartPointer<vtkRender
 
 	connect(this->m_LayerModel,SIGNAL(showLayer(ttt::Dataset::LayerHandlerType &)),this,SLOT(showLayer(ttt::Dataset::LayerHandlerType &)));
 	connect(this->m_LayerModel,SIGNAL(hideLayer(ttt::Dataset::LayerHandlerType &)),this,SLOT(hideLayer(ttt::Dataset::LayerHandlerType &)));
+
+	connect(this->m_pUI->layersTableView->selectionModel(),SIGNAL(currentRowChanged(const QModelIndex & , const QModelIndex & )),this,SLOT(rowChanged(const QModelIndex & , const QModelIndex & )));
+
+}
+void tttLayerManager::rowChanged(const QModelIndex & current , const QModelIndex & previous){
+	if(previous.row()!=-1){
+		emit selectedLayerCleared(m_LayerModel->getLayerAtRow(previous.row()));
+	}
+	if(current.row()!=-1){
+		emit selectedLayerChanged(m_LayerModel->getLayerAtRow( current.row()));
+	}
 }
 
 void tttLayerManager::currentFrameChanged(unsigned long frame) {
 	std::cout << "tttLayerManager->currentFrameChanged " << frame << std::endl;
+
+	this->m_pUI->layersTableView->selectionModel()->clear();
 
 	m_CurrentFrame = frame;
 	m_LayerModel->frameChanged(frame);
@@ -64,6 +77,14 @@ void tttLayerManager::datasetChanged(const ttt::Dataset::Pointer& dataset) {
 
 void tttLayerManager::datasetClosed() {
 	m_Dataset = 0;
+
+	for(auto drawer = m_Drawers.begin(); drawer!=m_Drawers.end();++drawer){
+		drawer->second->Reset();
+	}
+	m_Drawers.clear();
+	m_RenderWindow->Render();
+	m_LayerModel->datasetClosed();
+
 }
 
 void tttLayerManager::drawLayer() {
@@ -77,13 +98,11 @@ void tttLayerManager::eraseLayer() {
 void tttLayerManager::showLayer(ttt::Dataset::LayerHandlerType & layer) {
 	m_Drawers[layer]->Show();
 	this->m_RenderWindow->Render();
-
 }
 
 void tttLayerManager::hideLayer(ttt::Dataset::LayerHandlerType & layer) {
 	m_Drawers[layer]->Hide();
 	this->m_RenderWindow->Render();
-
 }
 
 void tttLayerManager::addLayer() {

@@ -6,12 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>376</width>
+    <width>188</width>
     <height>70</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="floating">
-   <bool>true</bool>
+   <bool>false</bool>
+  </property>
+  <property name="features">
+   <set>QDockWidget::AllDockWidgetFeatures</set>
   </property>
   <property name="allowedAreas">
    <set>Qt::AllDockWidgetAreas</set>
@@ -24,28 +33,44 @@
     <item>
      <widget class="QPushButton" name="firstButton">
       <property name="text">
-       <string>&lt;&lt;</string>
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="Icons/icons.qrc">
+        <normaloff>:/Icons/begin.png</normaloff>:/Icons/begin.png</iconset>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QPushButton" name="backwardButton">
       <property name="text">
-       <string>&lt;</string>
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="Icons/icons.qrc">
+        <normaloff>:/Icons/previous.png</normaloff>:/Icons/previous.png</iconset>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QPushButton" name="forwardButton">
       <property name="text">
-       <string>&gt;</string>
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="Icons/icons.qrc">
+        <normaloff>:/Icons/next.png</normaloff>:/Icons/next.png</iconset>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QPushButton" name="lastButton">
       <property name="text">
-       <string>&gt;&gt;</string>
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="Icons/icons.qrc">
+        <normaloff>:/Icons/end.png</normaloff>:/Icons/end.png</iconset>
       </property>
      </widget>
     </item>
@@ -72,7 +97,9 @@
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="Icons/icons.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>firstButton</sender>
